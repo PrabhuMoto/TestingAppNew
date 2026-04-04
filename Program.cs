@@ -49,6 +49,7 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
     {
         options.SwaggerEndpoint("/swagger/users/swagger.json", "Users API");
         options.SwaggerEndpoint("/swagger/default/swagger.json", "Default API");
+        options.RoutePrefix = string.Empty;
     });
 }
 
