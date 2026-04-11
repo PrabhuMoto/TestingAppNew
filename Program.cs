@@ -53,6 +53,10 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
     });
 }
 
+app.UseCors(x => x.AllowAnyOrigin()
+.AllowAnyMethod()
+.AllowAnyHeader());
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
