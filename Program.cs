@@ -19,6 +19,12 @@ builder.Services.AddSwaggerGen(options =>
         Version = "v1"
     });
 
+    options.SwaggerDoc("employees", new Microsoft.OpenApi.Models.OpenApiInfo
+    {
+        Title = "Employees API",
+        Version = "v1"
+    });
+
     options.SwaggerDoc("default", new Microsoft.OpenApi.Models.OpenApiInfo
     {
         Title = "Main API",
@@ -48,6 +54,7 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
     app.UseSwaggerUI(options =>
     {
         options.SwaggerEndpoint("/swagger/users/swagger.json", "Users API");
+        options.SwaggerEndpoint("/swagger/employees/swagger.json", "Employees API");
         options.SwaggerEndpoint("/swagger/default/swagger.json", "Default API");
         options.RoutePrefix = string.Empty;
     });
@@ -71,4 +78,7 @@ using(var scope = app.Services.CreateScope())
 
 var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
 
-app.Run($"http://0.0.0.0:{port}");
+if (app.Environment.IsDevelopment())
+    app.Run();
+else
+    app.Run($"http://0.0.0.0:{port}");
