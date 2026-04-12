@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using TestingApp.Common;
 using TestingApp.Data;
-using TestingApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +23,13 @@ builder.Services.AddSwaggerGen(options =>
         Title = "Employees API",
         Version = "v1"
     });
+
+    options.SwaggerDoc("toDos", new Microsoft.OpenApi.Models.OpenApiInfo
+    {
+        Title = "ToDos API",
+        Version = "v1"
+    });
+
 
     options.SwaggerDoc("default", new Microsoft.OpenApi.Models.OpenApiInfo
     {
@@ -55,6 +61,7 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
     {
         options.SwaggerEndpoint("/swagger/users/swagger.json", "Users API");
         options.SwaggerEndpoint("/swagger/employees/swagger.json", "Employees API");
+        options.SwaggerEndpoint("/swagger/toDos/swagger.json", "ToDos API");
         options.SwaggerEndpoint("/swagger/default/swagger.json", "Default API");
         options.RoutePrefix = string.Empty;
     });

@@ -8,6 +8,7 @@ namespace TestingApp.Common
         { 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped<IToDoService, ToDoService>();
             return services;
         }
     }
