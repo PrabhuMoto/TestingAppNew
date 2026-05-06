@@ -6,6 +6,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+// Add CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+
 builder.Services.AddControllers()
     .AddJsonOptions(options => options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -46,7 +57,7 @@ builder.Services.AddSwaggerGen(options =>
         return apiDesc.GroupName == docName;
     });
 });
-
+AppContext.SetSwitch("System.Net.DisableIPv6", true);
 builder.Services.AddDbContext<TestingDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("TestingAppDb")));
 
 builder.Services.AddApplicationServices();
@@ -67,9 +78,7 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
     });
 }
 
-app.UseCors(x => x.AllowAnyOrigin()
-.AllowAnyMethod()
-.AllowAnyHeader());
+app.UseCors("AllowAll");
 
 app.UseHttpsRedirection();
 
