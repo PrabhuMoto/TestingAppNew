@@ -57,7 +57,7 @@ builder.Services.AddSwaggerGen(options =>
         return apiDesc.GroupName == docName;
     });
 });
-AppContext.SetSwitch("System.Net.DisableIPv6", true);
+
 builder.Services.AddDbContext<TestingDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("TestingAppDb")));
 
 builder.Services.AddApplicationServices();
